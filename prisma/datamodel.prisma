@@ -1,0 +1,56 @@
+type User {
+  id: ID! @unique
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  firstName: String
+  lastName: String
+  cognitoId: String! @unique
+  email: String! @unique
+  phone: String!
+  listings: [Listing!]!
+  photo: Media
+  friends: [User!]!
+}
+
+type Comment {
+  id: ID! @unique
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  text: String!
+  listing: Listing!
+  replies: [Comment!]!
+  photos: [Media!]!
+  user: User!
+}
+
+type Media {
+  id: ID! @unique
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  filename: String!
+  localSource: String!
+  uploadUri: String
+  bucket: String
+  key: String
+  region: String
+  user: User!
+}
+
+type Listing {
+  id: ID! @unique
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  name: String!
+  description: String
+  price: String
+  user: User!
+  photos: [Media!]!
+  comments: [Comment!]!
+}
+
+enum ExchangeType {
+  SELL
+  BUY
+  LOAN
+  RENT
+}
